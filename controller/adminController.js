@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 
-export const register =async (req, res) => {
+export const    register =async (req, res) => {
 
 
     try {

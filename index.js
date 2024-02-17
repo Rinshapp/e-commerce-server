@@ -17,10 +17,6 @@ app.use(express.json());
 app.use('/api/images/uploads/',express.static(process.env.FILE_UPLOADING_PATH));
 
 
-
-
-
-
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'uploads/')
@@ -250,6 +246,17 @@ app.get("/api/products/",async(req,res)=>{
         return res.status(404).json("no entries yet");
     } else {
         return res.status(200).json({ products: products });
+    }
+})
+
+app.get("/api/products/:id",async(req,res)=>{
+    if(!req.params.id) return res.status(400).json({message:'id not provided'})
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+        return res.status(404).json("no entries yet");
+    } else {
+        return res.status(200).json({ product: product });
     }
 })
 
